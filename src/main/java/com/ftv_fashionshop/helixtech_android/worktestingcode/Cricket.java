@@ -30,16 +30,16 @@ public class Cricket extends AppCompatActivity {
         ArrayList<Pogo> list = new ArrayList<Pogo>();
         ParseJSONFromRawFolder.parser(this);
 
-//        for(int i=0; i<20; i++) {
-//            Pogo p = new Pogo();
-//            if(i%10==0)
-//                p.setOne("OOOOOOOOOOOOOOOOOOOOOO");
-//            if(i%2==0 || i%5 == 0)
-//                p.setThree("THTHTHTHTHTHTHTHTH");
-//            if(i%5==0)
-//                p.setTwo("TTTTTTTTTTTTTTTTTTT");
-//            list.add(p);
-//        }
+        for(int i=0; i<20; i++) {
+            Pogo p = new Pogo();
+            if(i%10==0)
+                p.setOne("OOOOOOOOOOOOOOOOOOOOOO");
+            if(i%2==0 || i%5 == 0)
+                p.setThree("THTHTHTHTHTHTHTHTH");
+            if(i%5==0)
+                p.setTwo("TTTTTTTTTTTTTTTTTTT");
+            list.add(p);
+        }
 //        passToAdapter(list);
     }
 
