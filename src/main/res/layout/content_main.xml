@@ -16,6 +16,7 @@
     <TextView
         android:id="@+id/text"
         android:outlineProvider="paddedBounds"
+        android:scrollbars="vertical"
         android:elevation="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

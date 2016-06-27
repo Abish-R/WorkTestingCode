@@ -1,6 +1,7 @@
 package com.ftv_fashionshop.helixtech_android.worktestingcode;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -40,6 +41,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -56,6 +66,7 @@ public class MainActivity extends AppCompatActivity
     private static RecyclerView recyclerView;
     ArrayList<Item> list= new ArrayList<Item>();
     List<String> list1= new ArrayList<String>();
+    TextView text;
     Spinner _list;
     PopupWindow popupWindowDogs;
     boolean itemsStatus[];
@@ -146,6 +157,7 @@ public class MainActivity extends AppCompatActivity
         multidrop1 = (Button)findViewById(R.id.multidrop1);
         multidrop1.setOnClickListener(this);
         listview = (ListView)findViewById(R.id.listview);
+        text = (TextView)findViewById(R.id.text);
     }
 
     public void onClick(View v){
@@ -342,6 +354,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_manage) {
+//            RequestingLiveDataString rs = new RequestingLiveDataString(this);
+            GetResponseString();
+
 
         } else if (id == R.id.nav_share) {
 
@@ -352,5 +367,66 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void GetResponseString(){
+        // Tag used to cancel the request
+        final String tag_json_obj = "string_req";
+
+        String url = "http://synd.cricbuzz.com/j2me/1.0/sch_calender.xml";
+
+        final ProgressDialog pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+
+        StringRequest req = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        String KEY_ITEM = "mth"; // parent node
+                        String KEY_ITEM1 = "country"; // sub parent node
+                        String KEY_ITEM2 = "series"; // sub parent node
+                        String KEY_NAME = "mch";
+                        String KEY_COST = "desc";
+                        String KEY_DESC = "srs";
+
+                        //text.setText(response);
+
+                        XMLParserForFixtures parse = new XMLParserForFixtures();
+                        //Document doc = buildDocument(result);
+                        Document doc = parse.getDomElement(response); // getting DOM element
+                        NodeList nl = doc.getElementsByTagName(KEY_ITEM);
+                        NodeList nl1 = doc.getElementsByTagName(KEY_ITEM1);
+                        NodeList nl2 = doc.getElementsByTagName(KEY_ITEM2);
+                        NodeList nl3 = doc.getElementsByTagName(KEY_NAME);
+//                        Element e = (Element) nl.item(0);
+//                        String test = e.getAttribute("mchs");
+                        for (int i = 0; i < nl3.getLength(); i++) {
+                            Element e1 = (Element) nl3.item(i);
+                            String test11 =e1.getAttribute("desc");
+                            String name = e1.getAttribute("srs");
+                            String cost = e1.getAttribute("ddt");
+                            String description = e1.getAttribute("vnu");
+                            String time = e1.getAttribute("tm");
+                            String mnth_yr = e1.getAttribute("mnth_yr");
+                            //String mnth_yr = parse.getValue("mnth_yr");
+                            Toast.makeText(getApplicationContext(),test11+"/n"+name+"/n"+cost+"/n"+description+"/n"+
+                                    time+"/n"+mnth_yr,Toast.LENGTH_LONG).show();
+                        }
+                        pDialog.hide();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // handle error response
+                        pDialog.hide();
+                    }
+                });
+
+// Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req, tag_json_obj);
+        //return valiue;
     }
 }
