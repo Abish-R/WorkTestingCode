@@ -16,9 +16,9 @@
         of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise
         on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor
         sit amet..", comes from a line in section 1.10.32.</string>
-<!--AIzaSyB1aPOhc0HwhZmfrkMlthEVtXIThGPXBd8
+    <!--AIzaSyB1aPOhc0HwhZmfrkMlthEVtXIThGPXBd8
 AIzaSyB3q1QavzjzeFHrs87VIfdK0B4K5VD1wmI-->
-    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyABtmzEBYEINzVc6_9kDEG_HeHWHyM5zqY
     </string>
 </resources>

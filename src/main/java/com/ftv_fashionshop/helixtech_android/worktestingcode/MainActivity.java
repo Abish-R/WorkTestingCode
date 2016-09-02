@@ -359,7 +359,7 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_share) {
-
+            startActivity(new Intent(this,Analytics.class));
         } else if (id == R.id.nav_send) {
 
         }
